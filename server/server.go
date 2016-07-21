@@ -6,12 +6,19 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/Jeffail/gabs"
 	"github.com/akfork/app"
 )
 
 func handleRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method: ", r.Method, "url: ", r.URL)
-	fmt.Fprintln(w, "hello world")
+
+	jsonObj := gabs.New()
+
+	jsonObj.Set(0, "code")
+	jsonObj.Set("hello world", "data")
+
+	fmt.Fprintf(w, jsonObj.String())
 }
 
 func main() {
